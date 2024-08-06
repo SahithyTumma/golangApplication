@@ -72,19 +72,18 @@ func UpdateFact(c *fiber.Ctx) error {
 
 	result := database.DB.Db.Model(&models.Fact{}).Where("id = ?", id).Updates(fact)
 	if result.Error != nil {
-		if result.RowsAffected == 0 {
-			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
-				"message": "No fact found to update with the given ID",
-			})
-		}
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": "Failed to update fact: " + result.Error.Error(),
+		})
+	}
+	if result.RowsAffected == 0 {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+			"message": "No fact found to update with the given ID",
 		})
 	}
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"message": "Fact updated successfully",
-		"fact":    fact,
 	})
 }
 
