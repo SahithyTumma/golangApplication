@@ -1,8 +1,6 @@
 package handlers
 
 import (
-	// "fmt"
-
 	"github.com/SahithyTumma/docker/database"
 	"github.com/SahithyTumma/docker/models"
 	"github.com/gofiber/fiber/v2"
