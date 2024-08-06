@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"fmt"
+	// "fmt"
 
 	"github.com/SahithyTumma/docker/database"
 	"github.com/SahithyTumma/docker/models"
@@ -9,75 +9,101 @@ import (
 )
 
 func ListFacts(c *fiber.Ctx) error {
-	facts := []models.Fact{}
-	database.DB.Db.Find(&facts)
+	var facts []models.Fact
+	if err := database.DB.Db.Find(&facts).Error; err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"message": "Failed to retrieve facts: " + err.Error(),
+		})
+	}
 
 	if len(facts) == 0 {
-		return c.Status(404).JSON(fiber.Map{
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
 			"message": "No facts found",
 		})
 	}
 
-	return c.Status(200).JSON(facts)
+	return c.Status(fiber.StatusOK).JSON(facts)
 }
 
 func CreateFact(c *fiber.Ctx) error {
 	fact := new(models.Fact)
 	if err := c.BodyParser(fact); err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"message": err.Error(),
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"message": "Failed to parse request body: " + err.Error(),
 		})
 	}
 
-	database.DB.Db.Create(&fact)
+	if err := database.DB.Db.Create(fact).Error; err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"message": "Failed to create fact: " + err.Error(),
+		})
+	}
 
-	return c.Status(200).JSON(fact)
+	return c.Status(fiber.StatusCreated).JSON(fact)
 }
 
 func ShowFact(c *fiber.Ctx) error {
-	fact := models.Fact{}
+	var fact models.Fact
 	id := c.Params("id")
 
-	database.DB.Db.Where("id = ?", id).First(&fact)
-
-	if fact.ID == 0 {
-		return c.Status(404).JSON(fiber.Map{
-			"message": "No fact found",
+	if err := database.DB.Db.Where("id = ?", id).First(&fact).Error; err != nil {
+		if err.Error() == "record not found" {
+			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+				"message": "No fact found with the given ID",
+			})
+		}
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"message": "Failed to retrieve fact: " + err.Error(),
 		})
 	}
 
-	return c.Status(200).JSON(fact)
+	return c.Status(fiber.StatusOK).JSON(fact)
 }
 
 func UpdateFact(c *fiber.Ctx) error {
 	fact := new(models.Fact)
 	id := c.Params("id")
 
-	// Parsing the request body
 	if err := c.BodyParser(fact); err != nil {
-		return c.Status(fiber.StatusServiceUnavailable).SendString(err.Error())
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"message": "Failed to parse request body: " + err.Error(),
+		})
 	}
 
-	result := database.DB.Db.Model(&fact).Where("id = ?", id).Updates(fact)
-
-	fmt.Println(fact)
-
+	result := database.DB.Db.Model(&models.Fact{}).Where("id = ?", id).Updates(fact)
 	if result.Error != nil {
-		return c.Status(fiber.StatusServiceUnavailable).SendString(result.Error.Error())
+		if result.RowsAffected == 0 {
+			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+				"message": "No fact found to update with the given ID",
+			})
+		}
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"message": "Failed to update fact: " + result.Error.Error(),
+		})
 	}
 
-	return ShowFact(c)
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"message": "Fact updated successfully",
+		"fact":    fact,
+	})
 }
 
 func DeleteFact(c *fiber.Ctx) error {
-	fact := models.Fact{}
 	id := c.Params("id")
 
-	result := database.DB.Db.Where("id = ?", id).Delete(&fact)
-
+	result := database.DB.Db.Where("id = ?", id).Delete(&models.Fact{})
 	if result.Error != nil {
-		return c.Status(fiber.StatusServiceUnavailable).SendString(result.Error.Error())
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"message": "Failed to delete fact: " + result.Error.Error(),
+		})
+	}
+	if result.RowsAffected == 0 {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+			"message": "No fact found to delete with the given ID",
+		})
 	}
 
-	return ListFacts(c)
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"message": "Fact deleted successfully",
+	})
 }
