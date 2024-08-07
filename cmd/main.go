@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/SahithyTumma/docker/database"
-	"github.com/SahithyTumma/docker/handlers"
+	"github.com/SahithyTumma/golangApplication/database"
+	"github.com/SahithyTumma/golangApplication/handlers"
 	"github.com/gofiber/fiber/v2"
 )
 

@@ -1,4 +1,4 @@
-module github.com/SahithyTumma/docker
+module github.com/SahithyTumma/golangApplication
 
 go 1.19
 

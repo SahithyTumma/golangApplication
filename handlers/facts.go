@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	"github.com/SahithyTumma/docker/database"
-	"github.com/SahithyTumma/docker/models"
+	"github.com/SahithyTumma/golangApplication/database"
+	"github.com/SahithyTumma/golangApplication/models"
 	"github.com/gofiber/fiber/v2"
 )
 
