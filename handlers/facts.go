@@ -3,6 +3,7 @@ package handlers
 import (
 	"github.com/SahithyTumma/golangApplication/database"
 	"github.com/SahithyTumma/golangApplication/models"
+	"github.com/SahithyTumma/golangApplication/pulsar"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -34,6 +35,13 @@ func CreateFact(c *fiber.Ctx) error {
 	if err := database.DB.Db.Create(fact).Error; err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": "Failed to create fact: " + err.Error(),
+		})
+	}
+
+	message := "New fact created: " + fact.Question
+	if err := pulsar.PublishMessage(message); err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"message": "Failed to publish message: " + err.Error(),
 		})
 	}
 
@@ -80,6 +88,13 @@ func UpdateFact(c *fiber.Ctx) error {
 		})
 	}
 
+	message := "Fact updated: " + id
+	if err := pulsar.PublishMessage(message); err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"message": "Failed to publish message: " + err.Error(),
+		})
+	}
+
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"message": "Fact updated successfully",
 	})
@@ -97,6 +112,13 @@ func DeleteFact(c *fiber.Ctx) error {
 	if result.RowsAffected == 0 {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
 			"message": "No fact found to delete with the given ID",
+		})
+	}
+
+	message := "Fact deleted: " + id
+	if err := pulsar.PublishMessage(message); err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"message": "Failed to publish message: " + err.Error(),
 		})
 	}
 
