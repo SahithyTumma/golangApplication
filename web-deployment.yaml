@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: web
-          image: sahithy/facts
+          image: sahithy/facts1
           command: ["go", "run", "./cmd/main.go"]
           ports:
             - containerPort: 3000

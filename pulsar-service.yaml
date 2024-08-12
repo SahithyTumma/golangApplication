@@ -6,7 +6,7 @@ spec:
   ports:
     - port: 6650
       targetPort: 6650
-      name: pulsar
+      name: pulsar-p
     - port: 8080
       targetPort: 8080
       name: pulsar-admin
