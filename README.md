@@ -35,8 +35,29 @@ This command starts the following services:
 
 ### Kubernetes Deployment
 
-1. **Apply the yaml files for PostgreSQL**
+Ensure you have a Kubernetes cluster running and Helm installed. Install apache pulsar and make sure all the pulsar pods are either in `Running` or `Completed` state.
+
+1. **Deploy PostgreSQL**
 
     ```bash
-    kubectl apply -f db-deployment.yaml
-    kubectl apply -f db-service.yaml
+    kubectl create -f db-deployment.yaml
+    kubectl create -f db-service.yaml
+
+2. **Deploy Golang application**
+
+   ```bash
+   kubectl create -f web-deployment.yaml
+   kubectl create -f web-nodeport.yaml
+
+Access the application at http://<NODE_IP>:<NODE_PORT> of web-service-node NodePort
+
+Interact with API using curl, Postman or Thunderclient in vscode.
+
+## Endpoints
+
+- **GET** `/` - List all facts
+- **POST** `/fact` - Create a new fact
+- **GET** `/fact/:id` - Get a fact by ID
+- **PATCH** `/fact/:id` - Update a fact by ID
+- **DELETE** `/fact/:id` - Delete a fact by ID
+
