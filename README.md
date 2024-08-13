@@ -51,15 +51,15 @@ This project is a Go application of Facts (questioin and an answer) demonstratin
 
 To build and run the application using Docker Compose:
 
-    ```bash
-    docker-compose up --build
-    ```
+   ```bash
+   docker-compose up --build
+   ```
 
-   This command starts the following services:
+This command starts the following services:
 
-   - **Web**: The Go application
-   - **DB**: PostgreSQL database
-   - **Pulsar**: Apache Pulsar
+- **Web**: The Go application
+- **DB**: PostgreSQL database
+- **Pulsar**: Apache Pulsar
 
 Interact with APIs at `http://localhost:3000`
 
@@ -72,19 +72,19 @@ Ensure you have a Kubernetes cluster running and Helm installed. Create a namesp
 
 1. **Apply Configurations**: Use `kubectl` to apply the deployment and service configurations.
 
-    ```bash
-    kubectl create -f configmap.yaml
-    kubectl create -f db-deployment.yaml
-    kubectl create -f db-service.yaml
-    kubectl create -f web-deployment.yaml
-    kubectl create -f web-nodeport.yaml
-    ```
+   ```bash
+   kubectl create -f configmap.yaml
+   kubectl create -f db-deployment.yaml
+   kubectl create -f db-service.yaml
+   kubectl create -f web-deployment.yaml
+   kubectl create -f web-nodeport.yaml
+   ```
 
 2. **Access the Application**: Get the NodePort service's external IP and port:
 
-    ```bash
-    minikube service web-service-node --url
-    ```
+   ```bash
+   minikube service web-service-node --url
+   ```
 
 Interact with APIs at `http://localhost:<NODE_PORT>` of web-service-node.
 
