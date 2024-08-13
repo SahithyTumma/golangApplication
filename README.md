@@ -68,7 +68,7 @@ Interact with APIs at `http://localhost:3000`
 
 To deploy the application in a Kubernetes cluster:
 
-Ensure you have a Kubernetes cluster running and Helm installed. Install apache pulsar and make sure all the pulsar pods are either in `Running` or `Completed` state.
+Ensure you have a Kubernetes cluster running and Helm installed. Create a namespace `pulsar` and install apache pulsar. Make sure all the pulsar pods are either in `Running` or `Completed` state.
 
 1. **Apply Configurations**: Use `kubectl` to apply the deployment and service configurations.
 
