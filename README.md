@@ -27,9 +27,9 @@ This project is a Go application demonstrating CRUD operations using the Fiber f
 
     This command starts the following services:
 
-    - **Web**: The Go application
-    - **DB**: PostgreSQL database
-    - **Pulsar**: Apache Pulsar (standalone mode)
+- **Web**: The Go application
+- **DB**: PostgreSQL database
+- **Pulsar**: Apache Pulsar (standalone mode)
 
 
 
