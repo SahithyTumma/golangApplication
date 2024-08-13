@@ -55,11 +55,11 @@ To build and run the application using Docker Compose:
     docker-compose up --build
     ```
 
-    This command starts the following services:
+   This command starts the following services:
 
-    - **Web**: The Go application
-    - **DB**: PostgreSQL database
-    - **Pulsar**: Apache Pulsar
+   - **Web**: The Go application
+   - **DB**: PostgreSQL database
+   - **Pulsar**: Apache Pulsar
 
 Interact with APIs at `http://localhost:3000`
 
