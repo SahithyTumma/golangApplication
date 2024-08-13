@@ -25,7 +25,7 @@ This project is a Go application demonstrating CRUD operations using the Fiber f
     ```bash
     docker compose up --build
 
-    This command starts the following services:
+This command starts the following services:
 
 - **Web**: The Go application
 - **DB**: PostgreSQL database
