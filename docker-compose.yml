@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   web:
-    build: .
+    image: sahithy/facts
     env_file:
       - .env
     ports:

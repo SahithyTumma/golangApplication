@@ -14,6 +14,7 @@ var consumer pulsar.Consumer
 func InitializePulsarClient() {
 	var err error
 
+	// for docker URL = "pulsar://pulsar:6650"
 	client, err = pulsar.NewClient(pulsar.ClientOptions{
 		URL: "pulsar://pulsar-mini-proxy.pulsar.svc.cluster.local:6650",
 	})
