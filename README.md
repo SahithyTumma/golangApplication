@@ -28,15 +28,15 @@ This project is a Go application of Facts (questioin and an answer) demonstratin
 
 - **`.env`**: Environment variables used by Docker Compose to configure database credentials.
 
-- **`k8s/db-deployment.yaml`**: Kubernetes deployment configuration for the PostgreSQL database.
+- **`db-deployment.yaml`**: Kubernetes deployment configuration for the PostgreSQL database.
 
-- **`k8s/db-service.yaml`**: Kubernetes service configuration for exposing the PostgreSQL database.
+- **`db-service.yaml`**: Kubernetes service configuration for exposing the PostgreSQL database.
 
-- **`k8s/web-deployment.yaml`**: Kubernetes deployment configuration for the Go application.
+- **`web-deployment.yaml`**: Kubernetes deployment configuration for the Go application.
 
-- **`k8s/web-nodeport.yaml`**: Kubernetes service configuration for exposing the Go application via a NodePort.
+- **`web-nodeport.yaml`**: Kubernetes service configuration for exposing the Go application via a NodePort.
 
-- **`k8s/configmap.yaml`**: Kubernetes ConfigMap for storing environment variables like database credentials.
+- **`configmap.yaml`**: Kubernetes ConfigMap for storing environment variables like database credentials.
 
 ## Setup
 
