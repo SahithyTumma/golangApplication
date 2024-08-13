@@ -1,6 +1,6 @@
 # Golang Application
 
-This project is a Go application demonstrating CRUD operations using the Fiber framework, PostgreSQL for data storage, and Apache Pulsar for messaging. It uses GORM for ORM and Fiber for HTTP routing.
+This project is a Go application of Facts (questioin and an answer) demonstrating CRUD operations using the Fiber framework, PostgreSQL for data storage, and Apache Pulsar for messaging. It uses GORM for ORM and Fiber for HTTP routing.
 
 ## Features
 
@@ -17,7 +17,7 @@ This project is a Go application demonstrating CRUD operations using the Fiber f
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/yourusername/golangApplication.git
+   git clone https://github.com/SahithyTumma/golangApplication.git
    cd golangApplication
 
 2. **Build and Run with Docker Compose**
@@ -31,27 +31,31 @@ This command starts the following services:
 - **DB**: PostgreSQL database
 - **Pulsar**: Apache Pulsar (standalone mode)
 
+Interact with APIs at `http://localhost:3000`
 
 
 ### Kubernetes Deployment
 
 Ensure you have a Kubernetes cluster running and Helm installed. Install apache pulsar and make sure all the pulsar pods are either in `Running` or `Completed` state.
 
-1. **Deploy PostgreSQL**
+1. **Apply configmap**
+
+    ```bash
+    kubectl create -f configmap.yaml
+
+2. **Deploy PostgreSQL**
 
     ```bash
     kubectl create -f db-deployment.yaml
     kubectl create -f db-service.yaml
 
-2. **Deploy Golang application**
+3. **Deploy Golang application**
 
    ```bash
    kubectl create -f web-deployment.yaml
    kubectl create -f web-nodeport.yaml
 
-Access the application at http://<NODE_IP>:<NODE_PORT> of web-service-node NodePort
-
-Interact with API using curl, Postman or Thunderclient in vscode.
+Interact with APIs at `http://localhost<NODE_PORT>` of web-service-node using curl, Postman or Thunderclient in vscode.
 
 ## Endpoints
 
