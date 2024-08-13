@@ -15,7 +15,7 @@ func InitializePulsarClient() {
 	var err error
 
 	client, err = pulsar.NewClient(pulsar.ClientOptions{
-		URL: "pulsar://pulsar:6650",
+		URL: "pulsar://10.96.73.196:6650",
 	})
 	if err != nil {
 		log.Fatalf("Failed to create Pulsar client: %v", err)
