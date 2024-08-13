@@ -86,7 +86,7 @@ Ensure you have a Kubernetes cluster running and Helm installed. Install apache 
     minikube service web-service-node --url
     ```
 
-Interact with APIs at `http://localhost<NODE_PORT>` of web-service-node.
+Interact with APIs at `http://localhost:<NODE_PORT>` of web-service-node.
 
 
 ## API Endpoints
