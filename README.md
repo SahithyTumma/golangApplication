@@ -5,7 +5,7 @@ This project is a Go application of Facts (questioin and an answer) demonstratin
 ## Features
 
 - **CRUD Operations**: Create, Read, Update, and Delete `Fact` entities.
-- **PostgreSQL Integration**: Persistent data storage using GORM and PostgreSQL.
+- **PostgreSQL Integration**: Data storage using GORM and PostgreSQL.
 - **Apache Pulsar**: Integrated for message publishing and consumption.
 - **Fiber Framework**: Efficient and fast HTTP framework for Go.
 
@@ -49,7 +49,7 @@ This project is a Go application of Facts (questioin and an answer) demonstratin
 
 ### Build and Run with Docker Compose
 
-To build and run the application using Docker Compose:
+# To build and run the application using Docker Compose:
 
     ```bash
     docker-compose up --build
@@ -66,7 +66,7 @@ Interact with APIs at `http://localhost:3000`
 
 ### Kubernetes Deployment
 
-To deploy the application in a Kubernetes cluster:
+# To deploy the application in a Kubernetes cluster:
 
 Ensure you have a Kubernetes cluster running and Helm installed. Create a namespace `pulsar` and install apache pulsar. Make sure all the pulsar pods are either in `Running` or `Completed` state.
 
@@ -91,7 +91,7 @@ Interact with APIs at `http://localhost:<NODE_PORT>` of web-service-node.
 
 ## API Endpoints
 
-The application exposes the following REST API endpoints:
+# The application exposes the following REST API endpoints:
 
 - **`GET /`**: List all facts
 - **`POST /fact`**: Create a new fact
